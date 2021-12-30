@@ -18,11 +18,7 @@ const config = {
 		vite: {
 			plugins: [
 				AutoImport({
-					resolvers: [
-						IconsResolver({
-							extension: 'jsx'
-						})
-					]
+					resolvers: [IconsResolver()]
 				}),
 				Icons({
 					compiler: 'svelte'

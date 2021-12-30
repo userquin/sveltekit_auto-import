@@ -1,2 +1,2 @@
 Doesn't work:
-<IconMiPencilAlt />
+<IMajesticonsPencilAlt />
