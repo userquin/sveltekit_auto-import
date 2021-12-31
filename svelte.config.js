@@ -21,7 +21,6 @@ const config = {
 				{
 					name: 'dummy',
 					configResolved(config) {
-						console.log('PASO')
 						console.log(config.plugins.map(p => p.name).join(', '))
 						const idx = config.plugins.findIndex(p => p.name === 'vite-plugin-svelte')
 						const idx2 = config.plugins.findIndex(p => p.name === 'unplugin-autoimport')
