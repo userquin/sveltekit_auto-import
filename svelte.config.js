@@ -3,6 +3,7 @@ import preprocess from 'svelte-preprocess';
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import AutoImport from 'unplugin-auto-import/vite';
+import Inspect from 'vite-plugin-inspect'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -17,12 +18,29 @@ const config = {
 		target: '#svelte',
 		vite: {
 			plugins: [
-				AutoImport({
-					resolvers: [IconsResolver()]
-				}),
+				{
+					name: 'dummy',
+					configResolved(config) {
+						console.log('PASO')
+						console.log(config.plugins.map(p => p.name).join(', '))
+						const idx = config.plugins.findIndex(p => p.name === 'vite-plugin-svelte')
+						const idx2 = config.plugins.findIndex(p => p.name === 'unplugin-autoimport')
+						if (idx > -1 && idx2 > -1) {
+							console.log(`${idx} => ${idx2}`)
+						}
+					}
+				},
 				Icons({
 					compiler: 'svelte'
-				})
+				}),
+				{
+					...AutoImport({
+	          dts: 'src/auto-imports.d.ts',
+						resolvers: [IconsResolver()]
+					}),
+					enforce: 'post'
+				},
+				Inspect({ enabled: true })
 			]
 		}
 	}
